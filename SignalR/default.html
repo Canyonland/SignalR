@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>SignalR Web Client</title>
+    <style type="text/css">
+        body
+        {
+            font-family: Verdana;
+        }
+        div
+        {
+            color:red;
+        }
+
+    </style>
+    <script src="Scripts/jquery-1.6.4.js" type="text/javascript"></script>
+    <script src="Scripts/jquery.signalR-2.1.2.js" type="text/javascript"></script>
+    <script src="signalr/hubs"></script>
+    <script type="text/javascript">
+        //connect to Signal Hub when document is ready
+        $(function () {
+            var signalHub = $.connection.signalHub;
+            
+            $.connection.hub.start().done(function () {
+
+                
+                //add the onclick event handler to the button after the connection to the hub is established
+                $("#btSend").click(function () {
+
+                    Relay($("#txtMsg").val());
+                 
+                });
+            });
+
+            function Relay(msg) {
+                //call signal Hub server method to ralay messages to windows client 
+                signalHub.server.relay(msg);
+            }
+
+            // define signalr client method to display some message after message relay
+            signalHub.client.displayResponse= function(count)
+            {
+                $("#responseMsg").html("Message is delivered to " + count + " Windows client(s)");
+            }
+
+        })
+            
+
+
+
+    </script>
+</head>
+<body>
+    <input type="text" id="txtMsg"  placeholder="message to send"/>
+    <input type="button" id="btSend" value="Send Message To PC Client" />
+    <div id="responseMsg"></div>
+</body>
+</html>
