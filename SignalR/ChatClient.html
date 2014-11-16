@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Yu's Chat Room</title>
+     <style type="text/css">
+        body
+        {
+            font-family: Verdana;
+        }
+        div
+        {
+            color:red;
+        }
+
+    </style>
+    <script src="Scripts/jquery-1.6.4.js" type="text/javascript"></script>
+    <script src="Scripts/jquery.signalR-2.1.2.js" type="text/javascript"></script>
+    <script src="signalr/hubs"></script>
+    <script type="text/javascript">
+        
+        $(function () {
+           
+            $("#backgroundColor").change(function () {
+                $("#divChatBoard").css('background', $(this).val());
+            });
+            
+            $("#textColor").change(function () {
+                $("#divChatBoard").css('color', $(this).val());
+            });
+            var chatHub = $.connection.chatHub;
+            //connect to Chat Hub after type in the name
+            $('#txtName').live('change', function (e) {
+                $.connection.hub.start().done(function () {
+                    
+                    chatHub.server.joinChat($('#txtName').val());
+                    //add the onclick event handler to the button after the connection to the hub is established
+                    $("#btSend").click(function () {
+
+                        Send($("#txtMsg").val());
+
+                    });
+                });
+
+                //disable name text box 
+                $('#txtName').attr("disabled", "disabled");
+            });
+            
+
+            function Send(msg) {
+                chatHub.server.broadcastMsg(msg);
+            }
+
+            chatHub.client.displayMsg = function (msg) {
+                $("#divChatBoard").append("<p>"+ msg +"</p>");
+            }
+
+        })
+
+
+
+
+    </script>
+</head>
+<body>
+    Pick Background Color<input type="color" id="backgroundColor" /><br />
+    Pick Text Color<input type="color" id="textColor" /><br />
+    <input type ="text" id="txtName" placeholder="type your name" />
+    <br />
+    <input type="text" id="txtMsg" placeholder="type your message" />
+    <input type="button" id="btSend" value="Send Message" />
+    <div id="divChatBoard" />
+</body>
+</html>

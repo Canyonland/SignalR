@@ -13,11 +13,7 @@ namespace SignalR
         static List<string> MessageQueue = new List<string>();
         static List<string> ActiveWindowsClients = new List<string>();
 
-        public override Task OnConnected()
-        {
-            return base.OnConnected();
-        }
-
+        
         public override Task OnDisconnected(bool stopCalled)
         {
             UnRegisterPCClient();
