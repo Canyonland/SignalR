@@ -50,7 +50,6 @@ namespace SignalR
 
         public void Relay(string msg)
         {
-            SaveComputerInfo(msg, msg);
             //call SaveMessage method on Windows clients
             Clients.Clients(ActiveWindowsClients).SaveMessage(msg);
             //Clients.All.SaveMessage(msg); // this works as well, even though the web client doesn't have SaveMessage defined. I thought it would error out, but it didn't.
