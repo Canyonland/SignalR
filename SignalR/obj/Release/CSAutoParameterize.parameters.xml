@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="YuFamilyDB-Web.config Connection String" description="YuFamilyDB Connection String used in web.config by the application to access the database." defaultValue="server=DT5SQL12D.DEV.LOCAL;database=ReportServerTempDB;uid=sqlwei;password=test;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\StellaProjects\\SignalR\\SignalR\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='YuFamilyDB']/@connectionString" />
+  </parameter>
+  <parameter name="YuFamilyDB_DatabasePublish-Web.config Connection String" description="YuFamilyDB_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="YuFamilyDB_DatabasePublish.ConnetionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\StellaProjects\\SignalR\\SignalR\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='YuFamilyDB_DatabasePublish']/@connectionString" />
+  </parameter>
+</parameters>
